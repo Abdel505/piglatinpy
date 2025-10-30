@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		}
+	],
+	"settings": {
+		"geminicodeassist.agentYoloMode": true,
+		"geminicodeassist.agentDebugMode": true
+	}
+}
