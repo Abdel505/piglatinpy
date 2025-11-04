@@ -29,3 +29,7 @@ class PigLatinTranslator:  # Defines the class for translating phrases to Pig La
                     return word + "yay"
                 else:
                     return word + "ay"
+            if first_character in consonants:
+                return word[1:] + word[:1] + "ay"
+                #return word[1:]
+            
