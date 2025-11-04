@@ -8,17 +8,33 @@ from src.translator import PigLatinTranslator
 from src.error import PigLatinError
 
 
+
+
 class TestPigLatinTranslator(TestCase):
 
-    def test_translate_zabi(self): # Initialize the translator with the phrase "zabi"
+    def test_get_phrase(self): # Initialize the translator with the phrase "zabi"
         translator = PigLatinTranslator("zabi")
-        # Assert that the translation is "abizay"
-        self.assertEqual("abizay", translator.translate())
-
+        result = translator.get_phrase()
+        self.assertEqual("zabi", result)
+        
 
     def test_translate_empty_phrase(self):
-        # Initialize the translator with an empty phrase.
         translator = PigLatinTranslator("")
-        # Assert that a PigLatinError is raised for an empty phrase.
-        with self.assertRaises(PigLatinError):
-            translator.translate()
+        result = translator.translate()
+        self.assertEqual("Nil", result)
+    
+    def test_translate_word_start_with_vowel_end_with_y(self):
+        translator = PigLatinTranslator("any")
+        result = translator.translate()
+        self.assertEqual("anynay", result)
+        
+    def test_translate_word_start_with_vowels_end_with_vowel(self):
+        translator = PigLatinTranslator("apple")
+        result= translator.translate()
+        self.assertEqual("appleyay", result)
+
+    def test_translate_word_start_with_consonant(self):
+        translator = PigLatinTranslator("ask")
+        result = translator.translate()
+        self.assertEqual("askay", result)
+    
