@@ -18,18 +18,44 @@ class PigLatinTranslator:  # Defines the class for translating phrases to Pig La
     def translate(self) -> str:  # Method to translate the phrase into Pig Latin.
         if not self.phrase:
             return "Nil"
-        word = self.phrase
-        for char in word:
+        
+        words = self.phrase.split()
+        translated_words = []
+
+        for word in words:
+            if not word:
+                continue
+
             first_character = word[0]
             last_character = word[-1]
+
             if first_character in vowels:
                 if last_character == "y":
-                    return word + "nay"
+                    translated_words.append(word + "nay")
                 elif last_character in vowels:
-                    return word + "yay"
+                    translated_words.append(word + "yay")
                 else:
-                    return word + "ay"
-            if first_character in consonants:
-                return word[1:] + word[:1] + "ay"
-                #return word[1:]
+                    translated_words.append(word + "ay")
+            elif first_character in consonants:
+                translated_words.append(self.handle_consonants(word))
+            else:
+                translated_words.append(word)
+
+        return " ".join(translated_words)
+
+    def handle_consonants(self, word: str) -> str:
+        n_cons = 0
+        for char in word:
+            if char in consonants:
+                n_cons += 1
+            elif char in vowels:
+                break
+        cons = word[:n_cons]
+        rest = word[n_cons:]
+        return rest + cons + "ay"
+
+                            
+
+                
+
             
