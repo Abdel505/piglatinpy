@@ -13,9 +13,9 @@ from src.error import PigLatinError
 class TestPigLatinTranslator(TestCase):
 
     def test_get_phrase(self): # Initialize the translator with the phrase "zabi"
-        translator = PigLatinTranslator("zabi")
+        translator = PigLatinTranslator("abdel_505")
         result = translator.get_phrase()
-        self.assertEqual("zabi", result)
+        self.assertEqual("abdel_505", result)
         
 
     def test_translate_empty_phrase(self):
@@ -42,5 +42,7 @@ class TestPigLatinTranslator(TestCase):
         translator = PigLatinTranslator("hhello")
         result = translator.translate()
         self.assertEqual("ellohhay", result)
-    
-    
+    def test_translate_phrase_contain_space_hypen_pounctuation(self):
+        translator = PigLatinTranslator("hello-world yes-ask")
+        result= translator.translate()
+        self.assertEqual("ellohay-orldway esyay-askay", result)

@@ -6,6 +6,7 @@ from src.error import PigLatinError  # Import the custom exception class for han
 
 vowels ="aeiou"
 consonants = "bcdfghjklmnpqrstvwxyz"
+puncuations = ".,:;!?"
 
 class PigLatinTranslator:  # Defines the class for translating phrases to Pig Latin.
 
@@ -19,40 +20,53 @@ class PigLatinTranslator:  # Defines the class for translating phrases to Pig La
         if not self.phrase:
             return "Nil"
         
-        words = self.phrase.split()
-        translated_words = []
+        translated_phrase = ""
+        word = ""
 
-        for word in words:
-            if not word:
-                continue
 
-            first_character = word[0]
-            last_character = word[-1]
+        for i,char in enumerate(self.phrase):
+            if char == " " or char == "-" or char in puncuations:
+                translated_phrase += PigLatinTranslator.translated_word(word) + char
+                word = ""
+            elif i == len(self.phrase)-1:
+                word += char
+                translated_phrase += PigLatinTranslator.translated_word(word)
+            else: word += char
+        return translated_phrase
 
-            if first_character in vowels:
-                if last_character == "y":
-                    translated_words.append(word + "nay")
-                elif last_character in vowels:
-                    translated_words.append(word + "yay")
-                else:
-                    translated_words.append(word + "ay")
-            elif first_character in consonants:
-                translated_words.append(self.handle_consonants(word))
-            else:
-                translated_words.append(word)
+    @staticmethod
+    def translated_word(word):
+        first_character = word[0]
+        if first_character in vowels:
+            return PigLatinTranslator.translate_word_start_with_vowel(word)
+        elif first_character in consonants:
+            return PigLatinTranslator.translate_word_start_with_consonant(word)    
+            
+    @staticmethod
+    # First character is a vowel
+    def translate_word_start_with_vowel(word):
+        last_character = word[-1]
+        if last_character == "y":
+            return word + "nay"
+        elif last_character in vowels:
+            return word + "yay"
+        else:
+            return word + "ay"
 
-        return " ".join(translated_words)
-
-    def handle_consonants(self, word: str) -> str:
+    @staticmethod
+    # First character is a consonant
+    def translate_word_start_with_consonant(word):
         n_cons = 0
         for char in word:
             if char in consonants:
-                n_cons += 1
-            elif char in vowels:
+                n_cons +=1
+            else:
                 break
+        
         cons = word[:n_cons]
         rest = word[n_cons:]
         return rest + cons + "ay"
+
 
                             
 
