@@ -43,6 +43,21 @@ class TestPigLatinTranslator(TestCase):
         result = translator.translate()
         self.assertEqual("ellohhay", result)
     def test_translate_phrase_contain_space_hypen_pounctuation(self):
-        translator = PigLatinTranslator("hello-world yes-ask")
+        translator = PigLatinTranslator("hello-World yes-ask")
         result= translator.translate()
-        self.assertEqual("ellohay-orldway esyay-askay", result)
+        self.assertEqual("ellohay-Orldway esyay-askay", result)
+    def test_traslate_uapper_case_word(self):
+        translator = PigLatinTranslator("HELLO")
+        result = translator.translate()
+        self.assertEqual("ELLOHAY", result)
+    def test_traslate_tittle_case_word(self):
+        translator = PigLatinTranslator("Hello")
+        result = translator.translate()
+        self.assertEqual("Ellohay", result)
+    # This test whene translated_word method is called with an empty string
+    def test_translate_phrase_with_multihypen(self):
+        translator = PigLatinTranslator("hello--ask")
+        result = translator.translate()
+        self.assertEqual("ellohay--askay", result)
+    
+    

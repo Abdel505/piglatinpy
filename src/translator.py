@@ -36,12 +36,28 @@ class PigLatinTranslator:  # Defines the class for translating phrases to Pig La
 
     @staticmethod
     def translated_word(word):
-        first_character = word[0]
+       
+        if not word:
+            return ""
+
+        is_title = word.istitle()
+        is_upper = word.isupper()
+
+        lower_word = word.lower()
+        first_character = lower_word[0]
+
+        translated = ""
         if first_character in vowels:
-            return PigLatinTranslator.translate_word_start_with_vowel(word)
+            translated = PigLatinTranslator.translate_word_start_with_vowel(lower_word)
         elif first_character in consonants:
-            return PigLatinTranslator.translate_word_start_with_consonant(word)    
-            
+            translated = PigLatinTranslator.translate_word_start_with_consonant(lower_word)
+
+        if is_upper:
+            return translated.upper()
+        elif is_title:
+            return translated.title()
+        return translated
+
     @staticmethod
     # First character is a vowel
     def translate_word_start_with_vowel(word):
