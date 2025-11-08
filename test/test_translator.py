@@ -50,7 +50,7 @@ class TestPigLatinTranslator(TestCase):
         translator = PigLatinTranslator("HELLO")
         result = translator.translate()
         self.assertEqual("ELLOHAY", result)
-    def test_traslate_tittle_case_word(self):
+    def test_traslate_title_case_word(self):
         translator = PigLatinTranslator("Hello")
         result = translator.translate()
         self.assertEqual("Ellohay", result)
